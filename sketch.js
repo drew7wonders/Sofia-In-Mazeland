@@ -123,15 +123,15 @@ Down.setCollider("rectangle", 13, 35,230, 290);
           sofia.velocityY = -1
         }
 
-    // if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
-    //         sofia.velocityX = 0
-    //         sofia.velocityY = 1
-    //     }
-
-    if (World.mouseX == Down.x) {
+    if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
         }
+
+//     if (World.mouseX == Down.x) {
+//             sofia.velocityX = 0
+//             sofia.velocityY = 1
+//         }
 
     if (keyDown("left") || mousePressedOver(left)) {
             sofia.velocityX = -1
