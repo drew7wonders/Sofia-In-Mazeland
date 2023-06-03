@@ -94,7 +94,7 @@ function createShofia(){
     sofia.scale = 0.05;
     }
 
-    
+  
 
 function draw(){
     background(rgb(223,223,180));
@@ -123,7 +123,12 @@ Down.setCollider("rectangle", 13, 35,230, 290);
           sofia.velocityY = -1
         }
 
-    if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
+    // if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
+    //         sofia.velocityX = 0
+    //         sofia.velocityY = 1
+    //     }
+
+    if (World.mouseX == Down.x) {
             sofia.velocityX = 0
             sofia.velocityY = 1
         }
