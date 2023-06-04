@@ -123,8 +123,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
           sofia.velocityY = -1
         }      
 
-    if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
-        var test = createSprite(100,100,200,200)
+    if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
         }
