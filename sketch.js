@@ -154,7 +154,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
         UpF.visible = true;
         }  
 
-    if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
+    if (keyDown(DOWN_ARROW) || mouseIsOver(Down) || touchIsDown(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
             DownF.visible = true;
