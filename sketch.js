@@ -9,9 +9,6 @@ var gameState = 0;
 var Bird, TreeWon, youWonback;
 var restart, restartIMG;
 var UpFill, DownFill, LeftFill, RightFill, UpF, DownF, LeftF, RightF;
-
-let scaleFactor;
-
 function preload(){
     sofiaAnim = loadAnimation("assets/bird1.png","assets/bird2.png","assets/brd3.png");
     trophyIMG =loadImage("assets/tree-removebg-preview.png_2.png");
@@ -30,9 +27,7 @@ function preload(){
 
 function setup(){
 createCanvas(400, 600);
-scaleFactor = min(windowWidth / width, windowHeight / height);
-  resizeCanvas(width * scaleFactor, height * scaleFactor);
-  
+
 
     //mazes
     maze1 = createSprite(72, 0, 10, 100);
@@ -123,7 +118,7 @@ function createShofia(){
 
 function draw(){
     background(rgb(223,223,180));
-    scale(scaleFactor);
+    
     drawSprites();
     sofia.bounceOff(boundary);
     sofia.bounceOff(boundary2);
@@ -315,8 +310,3 @@ if (trophy.displace(sofia)) {
 
 console.log(gameState)    
 }
-
-function windowResized() {
-    scaleFactor = min(windowWidth / width, windowHeight / height);
-    resizeCanvas(width * scaleFactor, height * scaleFactor);
-  }
