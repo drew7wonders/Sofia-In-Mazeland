@@ -124,10 +124,9 @@ Down.setCollider("rectangle", 13, 35,230, 290);
         }      
 
     if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
+        var test = createSprite(100,100,200,200)
             sofia.velocityX = 0
             sofia.velocityY = 1
-          textSize(100)
-        text("Working for now", 300, 200);
         }
 
     // if (mouseOver(Down)) {
