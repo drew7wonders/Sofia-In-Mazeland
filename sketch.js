@@ -118,32 +118,32 @@ right.setCollider("rectangle",30,-13,300,260);
 Down.setCollider("rectangle", 13, 35,230, 290);
 
 //Controls
-    if (keyDown("up") || mousePressedOver(Up)) {
+    if (keyDown("up") || mouseIsOver(Up)) {
         sofia.velocityX = 0
           sofia.velocityY = -1
-        }
+        }      
 
-    if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
+    if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
         }
 
-//     if (World.mouseX == Down.x) {
-//             sofia.velocityX = 0
-//             sofia.velocityY = 1
-//         }
-
-    if (keyDown("left") || mousePressedOver(left)) {
+    // if (mouseOver(Down)) {
+    //        sofia.velocityX = 0
+    //        sofia.velocityY = 1
+    //     }
+//Problem here
+    if (keyDown("left") || mouseIsOver(left)) {
             sofia.velocityX = -1
             sofiavelocityY = 0
         }
         
-    if (keyDown("right") || mousePressedOver(right)) {
+    if (keyDown("right") || mouseIsOver(right)) {
             sofia.velocityX = 1 
             sofia.velocityY = 0
         }
 
-    if (mousePressedOver(restart) && gameState ==1){
+    if (mouseIsOver(restart) && gameState ==1){
             console.log("GM");
             gameState =0;
             setup();
