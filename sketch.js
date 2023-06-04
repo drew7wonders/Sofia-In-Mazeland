@@ -9,6 +9,10 @@ var gameState = 0;
 var Bird, TreeWon, youWonback;
 var restart, restartIMG;
 var UpFill, DownFill, LeftFill, RightFill, UpF, DownF, LeftF, RightF;
+
+var Arrow;
+
+
 function preload(){
     sofiaAnim = loadAnimation("assets/bird1.png","assets/bird2.png","assets/brd3.png");
     trophyIMG =loadImage("assets/tree-removebg-preview.png_2.png");
@@ -27,8 +31,11 @@ function preload(){
 
 function setup(){
 createCanvas(400, 600);
-
-
+scaleFactor = min(windowWidth / width, windowHeight / height);
+  resizeCanvas(width * scaleFactor, height * scaleFactor);
+  
+  //Arrow
+  Arrow = createSprite(World.mouseX, World.mouseY, 5,5);
     //mazes
     maze1 = createSprite(72, 0, 10, 100);
     maze2 = createSprite(0, 72, 100,10);
@@ -102,11 +109,11 @@ createCanvas(400, 600);
     right.addAnimation("right", RightIMG);
     right.scale = 0.2;
 
-    //restart
-
-   
 
 }
+
+
+
 //Sofia
 function createShofia(){
     sofia = createSprite(10, 10,11,11);
@@ -118,7 +125,9 @@ function createShofia(){
 
 function draw(){
     background(rgb(223,223,180));
-    
+    scale(scaleFactor);
+    const scaledMouseX = mouseX / scaleFactor;
+    const scaledMouseY = mouseY / scaleFactor;
     drawSprites();
     sofia.bounceOff(boundary);
     sofia.bounceOff(boundary2);
@@ -129,6 +138,12 @@ function draw(){
     DownF.visible = false;
     LeftF.visible = false;
     RightF.visible = false;
+    Arrow.visible = false;
+
+    Arrow.x = scaledMouseX;
+    Arrow.y = scaledMouseY;
+    console.log(Arrow.x + "Arrow");
+    console.log(mouseX);
 //colliders
 //Up.debug = true;
 Up.setCollider("rectangle", 13, -30,230, 280);
@@ -143,16 +158,18 @@ right.setCollider("rectangle",30,-13,300,260);
 Down.setCollider("rectangle", 13, 35,230, 290);
 
 //Controls
-    if (keyDown("up") || mouseIsOver(Up)) {
+    if (keyDown("up") || Arrow.isTouching(Up)) {
         sofia.velocityX = 0
         sofia.velocityY = -1
         UpF.visible = true;
+        console.log("w");
         }  
 
-    if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
+    if (keyDown(DOWN_ARROW) || Arrow.isTouching(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
             DownF.visible = true;
+            console.log("o");
         }
 
     // if (mouseOver(Down)) {
@@ -160,20 +177,22 @@ Down.setCollider("rectangle", 13, 35,230, 290);
     //        sofia.velocityY = 1
     //     }
 //Problem here
-    if (keyDown("left") || mouseIsOver(left)) {
+    if (keyDown("left") || Arrow.isTouching(left)) {
             sofia.velocityX = -1
             sofiavelocityY = 0
             LeftF.visible = true;
+            console.log("r");
         }
         
-    if (keyDown("right") || mouseIsOver(right)) {
+    if (keyDown("right") || Arrow.isTouching(right)) {
             sofia.velocityX = 1 
             sofia.velocityY = 0
             RightF.visible = true;
+            console.log("k");
         }
 
     if (mouseIsOver(restart) && gameState ==1){
-            console.log("GM");
+            //console.log("GM");
             gameState =0;
             setup();
             youWonback.destroy();
@@ -308,5 +327,11 @@ if (trophy.displace(sofia)) {
 
 //     }    
 
-console.log(gameState)    
+//console.log(gameState)    
 }
+
+function windowResized() {
+    scaleFactor = min(windowWidth / width, windowHeight / height);
+    resizeCanvas(width * scaleFactor, height * scaleFactor);
+   
+  }
