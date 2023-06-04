@@ -8,6 +8,7 @@ var leftIMG, RightIMG, UpIMG, DownIMG, youwinIMG,BridIMG,TreeIMG;
 var gameState = 0;
 var Bird, TreeWon, youWonback;
 var restart, restartIMG;
+var UpFill, DownFill, LeftFill, RightFill, UpF, DownF, LeftF, RightF;
 function preload(){
     sofiaAnim = loadAnimation("assets/bird1.png","assets/bird2.png","assets/brd3.png");
     trophyIMG =loadImage("assets/tree-removebg-preview.png_2.png");
@@ -18,7 +19,10 @@ function preload(){
      youwinIMG = loadImage("assets/youwin.png");
      restartIMG = loadImage("assets/R.png");
      TreeIMG = loadImage("assets/wontree.png");
-
+    RightFill = loadImage("assets/RightFill.png");
+    LeftFill = loadImage("assets/LeftFill.png");
+    UpFill = loadImage("assets/UpFill.png");
+    DownFill = loadImage("assets/DownFill.png");
 }
 
 function setup(){
@@ -65,7 +69,11 @@ createCanvas(400, 600);
     boundary3 = createSprite(0,200,5,1000);
     boundary4 = createSprite(400,200,5,1000);
 
-    //Controller
+    //Controller    
+    UpF = createSprite(190, 455, 10,10)
+    UpF.addAnimation("UpFill", UpFill);
+    UpF.scale = 0.2;
+
     Up = createSprite(190, 455, 10, 10);
     Up.addAnimation("up", UpIMG);
     Up.scale = 0.2;
@@ -74,9 +82,21 @@ createCanvas(400, 600);
     Down.addAnimation("down", DownIMG);
     Down.scale = 0.2;
 
+    DownF = createSprite(190, 555, 10,10)
+    DownF.addAnimation("DownFill", DownFill);
+    DownF.scale = 0.2;
+
     left = createSprite(100, 505, 10,10);
     left.addAnimation("left", leftIMG);
     left.scale = 0.2;
+
+    LeftF = createSprite(100, 505, 10,10)
+    LeftF.addAnimation("LeftFill", LeftFill);
+    LeftF.scale = 0.2;
+
+    RightF = createSprite(280, 505, 10,10)
+    RightF.addAnimation("RightFill", RightFill);
+    RightF.scale = 0.2;
 
     right = createSprite(280, 505, 10,10);
     right.addAnimation("right", RightIMG);
@@ -104,6 +124,11 @@ function draw(){
     sofia.bounceOff(boundary2);
     sofia.bounceOff(boundary3);
     sofia.bounceOff(boundary4);
+
+    UpF.visible = false;
+    DownF.visible = false;
+    LeftF.visible = false;
+    RightF.visible = false;
 //colliders
 //Up.debug = true;
 Up.setCollider("rectangle", 13, -30,230, 280);
@@ -120,12 +145,14 @@ Down.setCollider("rectangle", 13, 35,230, 290);
 //Controls
     if (keyDown("up") || mouseIsOver(Up)) {
         sofia.velocityX = 0
-          sofia.velocityY = -1
-        }      
+        sofia.velocityY = -1
+        UpF.visible = true;
+        }  
 
     if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
+            DownF.visible = true;
         }
 
     // if (mouseOver(Down)) {
@@ -136,11 +163,13 @@ Down.setCollider("rectangle", 13, 35,230, 290);
     if (keyDown("left") || mouseIsOver(left)) {
             sofia.velocityX = -1
             sofiavelocityY = 0
+            LeftF.visible = true;
         }
         
     if (keyDown("right") || mouseIsOver(right)) {
             sofia.velocityX = 1 
             sofia.velocityY = 0
+            RightF.visible = true;
         }
 
     if (mouseIsOver(restart) && gameState ==1){
@@ -248,7 +277,7 @@ if (maze21.displace(sofia)) {
     sofia.destroy();
     createShofia();
     }
-}
+ }
 
 if (trophy.displace(sofia)) { 
     gameState = 1;
