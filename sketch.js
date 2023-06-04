@@ -126,6 +126,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
     if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
+        text("Working for now", 100, 100);
         }
 
     // if (mouseOver(Down)) {
