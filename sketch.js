@@ -320,3 +320,21 @@ function windowResized() {
     scaleFactor = min(windowWidth / width, windowHeight / height);
     resizeCanvas(width * scaleFactor, height * scaleFactor);
   }
+
+  if (touchIsDown(Down)) {
+    sofia.velocityX = 0;
+    sofia.velocityY = 1;
+    DownF.visible = true;
+  }
+}
+
+function touchEnded() {
+  // Handle touch release events here
+  
+  // Example: If the Down sprite touch is released, perform an action
+  if (touchIsDown(Down)) {
+    sofia.velocityX = 0;
+    sofia.velocityY = 0;
+    DownF.visible = false;
+  }
+}
