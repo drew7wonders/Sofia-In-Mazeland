@@ -191,7 +191,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
             console.log("k");
         }
 
-    if (mouseIsOver(restart) && gameState ==1){
+ if (Arrow.isTouching(restart) && gameState ==1){
             //console.log("GM");
             gameState =0;
             setup();
@@ -199,7 +199,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
             Bird.destroy();
             TreeWon.destroy();
           draw();
-    }    
+    }     
     if(gameState == 0){
 //BounceOFF
 if (maze1.displace(sofia)) {
