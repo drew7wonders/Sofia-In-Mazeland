@@ -109,6 +109,12 @@ scaleFactor = min(windowWidth / width, windowHeight / height);
     right.addAnimation("right", RightIMG);
     right.scale = 0.2;
 
+    
+    restart = createSprite(40, 450, 50, 50);
+    restart.addAnimation("Restrat",restartIMG);
+    restart.scale = 0.04
+    //restart.debug = true;
+    restart.setCollider("circle",5,10,650);
 
 }
 
@@ -126,8 +132,10 @@ function createShofia(){
 function draw(){
     background(rgb(223,223,180));
     scale(scaleFactor);
+
     const scaledMouseX = mouseX / scaleFactor;
     const scaledMouseY = mouseY / scaleFactor;
+
     drawSprites();
     sofia.bounceOff(boundary);
     sofia.bounceOff(boundary2);
@@ -191,17 +199,21 @@ Down.setCollider("rectangle", 13, 35,230, 290);
             console.log("k");
         }
 
- if (Arrow.isTouching(restart) && gameState ==1){
+    if (Arrow.isTouching(restart) && gameState ==1){
             //console.log("GM");
             gameState =0;
+            restart.visible = false;
             setup();
             youWonback.destroy();
             Bird.destroy();
             TreeWon.destroy();
           draw();
-    }     
+    }    
     if(gameState == 0){
 //BounceOFF
+
+restart.visible = false;
+
 if (maze1.displace(sofia)) {
     sofia.destroy();
     createShofia();
@@ -303,6 +315,7 @@ if (trophy.displace(sofia)) {
     sofia.destroy();
     //trophy.destroy();
         if(gameState == 1){
+            restart.visible = true;
             youWonback = createSprite(200,205,400,410);
             youWonback.shapeColor = "white"
 
@@ -313,11 +326,6 @@ if (trophy.displace(sofia)) {
             Bird = createSprite(200,230, 50,50);
             Bird.addAnimation("youwin", youwinIMG);
             Bird.scale = 0.5
-        restart = createSprite(40, 450, 50, 50);
-        restart.addAnimation("Restrat",restartIMG);
-        restart.scale = 0.04
-        //restart.debug = true;
-        restart.setCollider("circle",5,10,650);
         }
 
 }
