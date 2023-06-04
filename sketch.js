@@ -123,7 +123,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
           sofia.velocityY = -1
         }      
 
-    if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
+    if (keyDown(DOWN_ARROW) || mousePressedOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
         }
