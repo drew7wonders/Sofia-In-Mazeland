@@ -154,7 +154,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
         UpF.visible = true;
         }  
 
-    if (keyDown(DOWN_ARROW) || mouseIsOver(Down) || touchIsDown(Down)) {
+    if (keyDown(DOWN_ARROW) || mouseIsOver(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
             DownF.visible = true;
@@ -320,21 +320,3 @@ function windowResized() {
     scaleFactor = min(windowWidth / width, windowHeight / height);
     resizeCanvas(width * scaleFactor, height * scaleFactor);
   }
-
-  if (touchIsDown(Down)) {
-    sofia.velocityX = 0;
-    sofia.velocityY = 1;
-    DownF.visible = true;
-  }
-}
-
-function touchEnded() {
-  // Handle touch release events here
-  
-  // Example: If the Down sprite touch is released, perform an action
-  if (touchIsDown(Down)) {
-    sofia.velocityX = 0;
-    sofia.velocityY = 0;
-    DownF.visible = false;
-  }
-}
