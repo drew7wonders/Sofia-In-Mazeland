@@ -11,7 +11,7 @@ var restart, restartIMG;
 var UpFill, DownFill, LeftFill, RightFill, UpF, DownF, LeftF, RightF;
 
 var Arrow;
-
+var arrowStartPosition;
 
 function preload(){
     sofiaAnim = loadAnimation("assets/bird1.png","assets/bird2.png","assets/brd3.png");
@@ -20,9 +20,9 @@ function preload(){
     RightIMG = loadImage("assets/Right.png");
     UpIMG = loadImage("assets/up.png");
     DownIMG = loadImage("assets/down.png");
-     youwinIMG = loadImage("assets/youwin.png");
-     restartIMG = loadImage("assets/R.png");
-     TreeIMG = loadImage("assets/wontree.png");
+    youwinIMG = loadImage("assets/youwin.png");
+    restartIMG = loadImage("assets/R.png");
+    TreeIMG = loadImage("assets/wontree.png");
     RightFill = loadImage("assets/RightFill.png");
     LeftFill = loadImage("assets/LeftFill.png");
     UpFill = loadImage("assets/UpFill.png");
@@ -32,10 +32,10 @@ function preload(){
 function setup(){
 createCanvas(400, 600);
 scaleFactor = min(windowWidth / width, windowHeight / height);
-  resizeCanvas(width * scaleFactor, height * scaleFactor);
-  
+resizeCanvas(width * scaleFactor, height * scaleFactor);
+arrowStartPosition = createVector(width / 2, height / 2);
   //Arrow
-  Arrow = createSprite(World.mouseX, World.mouseY, 5,5);
+   Arrow = createSprite(World.mouseX, World.mouseY, 5,5);
     //mazes
     maze1 = createSprite(72, 0, 10, 100);
     maze2 = createSprite(0, 72, 100,10);
@@ -117,7 +117,10 @@ scaleFactor = min(windowWidth / width, windowHeight / height);
     restart.setCollider("circle",5,10,650);
 
 }
-
+function resetArrowPosition() {
+    Arrow.position.x = arrowStartPosition.x;
+    Arrow.position.y = arrowStartPosition.y;
+  }  
 
 
 //Sofia
@@ -132,6 +135,9 @@ function createShofia(){
 function draw(){
     background(rgb(223,223,180));
     scale(scaleFactor);
+
+    Arrow.position.x = arrowStartPosition.x;
+    Arrow.position.y = arrowStartPosition.y;
 
     const scaledMouseX = mouseX / scaleFactor;
     const scaledMouseY = mouseY / scaleFactor;
@@ -148,8 +154,7 @@ function draw(){
     RightF.visible = false;
     Arrow.visible = false;
 
-    Arrow.x = scaledMouseX;
-    Arrow.y = scaledMouseY;
+
     console.log(Arrow.x + "Arrow");
     console.log(mouseX);
 //colliders
@@ -166,40 +171,39 @@ right.setCollider("rectangle",30,-13,300,260);
 Down.setCollider("rectangle", 13, 35,230, 290);
 
 //Controls
-    if (keyDown("up") || Arrow.isTouching(Up)) {
-        sofia.velocityX = 0
-        sofia.velocityY = -1
-        UpF.visible = true;
-        console.log("w");
-        }  
+    if(mouseDidMove()){
+            Arrow.x = scaledMouseX;
+            Arrow.y = scaledMouseY;
+        }
+        
+    if (keyDown("up") || Arrow.collide(Up)) {
+            sofia.velocityX = 0
+            sofia.velocityY = -1
+            UpF.visible = true;
+            console.log("w");
+        }
 
-    if (keyDown(DOWN_ARROW) || Arrow.isTouching(Down)) {
+    if (keyDown(DOWN_ARROW) || Arrow.collide(Down)) {
             sofia.velocityX = 0
             sofia.velocityY = 1
             DownF.visible = true;
             console.log("o");
         }
-
-    // if (mouseOver(Down)) {
-    //        sofia.velocityX = 0
-    //        sofia.velocityY = 1
-    //     }
-//Problem here
-    if (keyDown("left") || Arrow.isTouching(left)) {
+    if (keyDown("left") || Arrow.collide(left)) {
             sofia.velocityX = -1
             sofiavelocityY = 0
             LeftF.visible = true;
             console.log("r");
         }
         
-    if (keyDown("right") || Arrow.isTouching(right)) {
+    if (keyDown("right") || Arrow.collide(right)) {
             sofia.velocityX = 1 
             sofia.velocityY = 0
             RightF.visible = true;
             console.log("k");
         }
 
-    if (Arrow.isTouching(restart) && gameState ==1){
+    if ((Arrow.isTouching(restart) || keyDown("R") )&& gameState ==1){
             //console.log("GM");
             gameState =0;
             restart.visible = false;
