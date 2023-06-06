@@ -9,7 +9,9 @@ var gameState = 0;
 var Bird, TreeWon, youWonback;
 var restart, restartIMG;
 var UpFill, DownFill, LeftFill, RightFill, UpF, DownF, LeftF, RightF;
-
+var RulesButton, RulesBIMG;
+var Rules, RulesIMG;
+var RulesBack, RulesBackIMG;
 var Arrow;
 var arrowStartPosition;
 
@@ -27,6 +29,9 @@ function preload(){
     LeftFill = loadImage("assets/LeftFill.png");
     UpFill = loadImage("assets/UpFill.png");
     DownFill = loadImage("assets/DownFill.png");
+    RulesIMG = loadImage("assets/Rules.png");
+    RulesBackIMG = loadImage("assets/RulesBack.png");
+    RulesBIMG = loadImage("assets/RulesButton.png");
 }
 
 function setup(){
@@ -112,9 +117,22 @@ arrowStartPosition = createVector(width / 2, height / 2);
     
     restart = createSprite(40, 450, 50, 50);
     restart.addAnimation("Restrat",restartIMG);
-    restart.scale = 0.04
+    restart.scale = 0.04;
     //restart.debug = true;
     restart.setCollider("circle",5,10,650);
+
+    RulesButton = createSprite(365 ,430, 100, 30);
+    RulesButton.addAnimation("button", RulesBIMG);
+    RulesButton.scale = 0.6;
+
+    Rules = createSprite(200,210, 350, 380);
+    Rules.addAnimation("Rules",RulesIMG);
+
+    RulesBack = createSprite(355,40,50,50);
+    RulesBack.addAnimation("RulesBack", RulesBackIMG);
+    RulesBack.scale = 0.5;
+    Rules.visible = false;
+    RulesBack.visible = false;
 
 }
 function resetArrowPosition() {
@@ -154,9 +172,6 @@ function draw(){
     RightF.visible = false;
     Arrow.visible = false;
 
-
-    console.log(Arrow.x + "Arrow");
-    console.log(mouseX);
 //colliders
 //Up.debug = true;
 Up.setCollider("rectangle", 13, -30,230, 280);
@@ -175,28 +190,43 @@ Down.setCollider("rectangle", 13, 35,230, 290);
             Arrow.x = scaledMouseX;
             Arrow.y = scaledMouseY;
         }
-        
-    if (keyDown("up") || Arrow.collide(Up)) {
+
+    //Rules
+console.log(RulesButton.x);
+console.log(Arrow.x);
+if(Arrow.collide(RulesButton)){
+    console.log("Rules");
+    Rules.visible = true;
+    RulesBack.visible = true;    
+}
+
+if(Arrow.collide(RulesBack)){
+    Rules.visible = false;
+    RulesBack.visible = false;
+}
+
+
+    if ((keyDown("up") || Arrow.collide(Up)) && Rules.visible == false) {
             sofia.velocityX = 0
             sofia.velocityY = -1
             UpF.visible = true;
             console.log("w");
         }
 
-    if (keyDown(DOWN_ARROW) || Arrow.collide(Down)) {
+    if ((keyDown(DOWN_ARROW) || Arrow.collide(Down)) && Rules.visible == false) {
             sofia.velocityX = 0
             sofia.velocityY = 1
             DownF.visible = true;
             console.log("o");
         }
-    if (keyDown("left") || Arrow.collide(left)) {
+    if ((keyDown("left") || Arrow.collide(left)) && Rules.visible == false) {
             sofia.velocityX = -1
             sofiavelocityY = 0
             LeftF.visible = true;
             console.log("r");
         }
         
-    if (keyDown("right") || Arrow.collide(right)) {
+    if ((keyDown("right") || Arrow.collide(right)) && Rules.visible == false) {
             sofia.velocityX = 1 
             sofia.velocityY = 0
             RightF.visible = true;
@@ -205,6 +235,7 @@ Down.setCollider("rectangle", 13, 35,230, 290);
 
     if ((Arrow.isTouching(restart) || keyDown("R") )&& gameState ==1){
             //console.log("GM");
+
             gameState =0;
             restart.visible = false;
             setup();
@@ -213,126 +244,126 @@ Down.setCollider("rectangle", 13, 35,230, 290);
             TreeWon.destroy();
           draw();
     }    
-    if(gameState == 0){
-//BounceOFF
+if(gameState == 0){
+    //BounceOFF
 
-restart.visible = false;
+    restart.visible = false;
 
-if (maze1.displace(sofia)) {
-    sofia.destroy();
-    createShofia();
-    }
-
-if (maze2.displace(sofia)) {
+    if (maze1.displace(sofia)) {
         sofia.destroy();
         createShofia();
-    }
-if (maze3.displace(sofia)) {
-    sofia.destroy();
-    createShofia();
-    }
-if (maze4.displace(sofia)) {
-        sofia.destroy();
-        createShofia();
-    }
-    
-if (maze5.displace(sofia)) {
-            sofia.destroy();
-            createShofia();
-    }
-
-if (maze6.displace(sofia)) {
-        sofia.destroy();
-        createShofia();
-    }
-    
-if (maze7.displace(sofia)) {
-            sofia.destroy();
-            createShofia();
-    }
-    
-if (maze8.displace(sofia)) {
-            sofia.destroy();
-            createShofia();
-    }
-        
-if (maze9.displace(sofia)) {
-                sofia.destroy();
-                createShofia();
-    }
-if (maze10.displace(sofia)) {
-        sofia.destroy();
-        createShofia();
-    }
-    
-if (maze11.displace(sofia)) {
-            sofia.destroy();
-            createShofia();
-    }
-if (maze13.displace(sofia)) {
-        sofia.destroy();
-        createShofia();
-    }
-if (maze14.displace(sofia)) {
-            sofia.destroy();
-            createShofia();
-    }
-        
-if (maze15.displace(sofia)) {
-                sofia.destroy();
-                createShofia();
-    }
-    
-if (maze16.displace(sofia)) {
-           sofia.destroy();
-            createShofia();
-    }
-        
-if (maze20.displace(sofia)) {
-           sofia.destroy();
-            createShofia();
-    }
-        
-if (maze18.displace(sofia)) {
-    sofia.destroy();
-    createShofia();
-    }
-            
-if (maze19.displace(sofia)) {
-    sofia.destroy();
-    createShofia();
-    }
-            
-if (maze22.displace(sofia)) {
-        sofia.destroy();
-        createShofia();
-    }
-            
-if (maze21.displace(sofia)) {
-    sofia.destroy();
-    createShofia();
-    }
- }
-
-if (trophy.displace(sofia)) { 
-    gameState = 1;
-    sofia.destroy();
-    //trophy.destroy();
-        if(gameState == 1){
-            restart.visible = true;
-            youWonback = createSprite(200,205,400,410);
-            youWonback.shapeColor = "white"
-
-            TreeWon = createSprite(200, 250, 20, 20);
-            TreeWon.addAnimation("wontree", TreeIMG);
-            TreeWon.scale = 1.5;
-
-            Bird = createSprite(200,230, 50,50);
-            Bird.addAnimation("youwin", youwinIMG);
-            Bird.scale = 0.5
         }
 
-}
+    if (maze2.displace(sofia)) {
+            sofia.destroy();
+            createShofia();
+        }
+    if (maze3.displace(sofia)) {
+        sofia.destroy();
+        createShofia();
+        }
+    if (maze4.displace(sofia)) {
+            sofia.destroy();
+            createShofia();
+        }
+        
+    if (maze5.displace(sofia)) {
+                sofia.destroy();
+                createShofia();
+        }
+
+    if (maze6.displace(sofia)) {
+            sofia.destroy();
+            createShofia();
+        }
+        
+    if (maze7.displace(sofia)) {
+                sofia.destroy();
+                createShofia();
+        }
+        
+    if (maze8.displace(sofia)) {
+                sofia.destroy();
+                createShofia();
+        }
+            
+    if (maze9.displace(sofia)) {
+                    sofia.destroy();
+                    createShofia();
+        }
+    if (maze10.displace(sofia)) {
+            sofia.destroy();
+            createShofia();
+        }
+        
+    if (maze11.displace(sofia)) {
+                sofia.destroy();
+                createShofia();
+        }
+    if (maze13.displace(sofia)) {
+            sofia.destroy();
+            createShofia();
+        }
+    if (maze14.displace(sofia)) {
+                sofia.destroy();
+                createShofia();
+        }
+            
+    if (maze15.displace(sofia)) {
+                    sofia.destroy();
+                    createShofia();
+        }
+        
+    if (maze16.displace(sofia)) {
+            sofia.destroy();
+                createShofia();
+        }
+            
+    if (maze20.displace(sofia)) {
+            sofia.destroy();
+                createShofia();
+        }
+            
+    if (maze18.displace(sofia)) {
+        sofia.destroy();
+        createShofia();
+        }
+                
+    if (maze19.displace(sofia)) {
+        sofia.destroy();
+        createShofia();
+        }
+                
+    if (maze22.displace(sofia)) {
+            sofia.destroy();
+            createShofia();
+        }
+                
+    if (maze21.displace(sofia)) {
+        sofia.destroy();
+        createShofia();
+        }
+    }
+
+    if (trophy.displace(sofia)) { 
+        gameState = 1;
+        sofia.destroy();
+        //trophy.destroy();
+            if(gameState == 1){
+                restart.visible = true;
+                youWonback = createSprite(200,205,400,410);
+                youWonback.shapeColor = "white"
+
+                TreeWon = createSprite(200, 250, 20, 20);
+                TreeWon.addAnimation("wontree", TreeIMG);
+                TreeWon.scale = 1.5;
+
+                Bird = createSprite(200,230, 50,50);
+                Bird.addAnimation("youwin", youwinIMG);
+                Bird.scale = 0.5
+            }
+
+    }
 // if (boundary.displace(sofia)) {
 //         sofia.destroy();
 //         createShofia();
